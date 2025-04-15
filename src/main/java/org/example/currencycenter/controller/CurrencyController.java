@@ -10,6 +10,7 @@ import org.example.currencycenter.service.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -27,7 +28,8 @@ public class CurrencyController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<List<Currency>> getAllCodes(){
+    public ResponseEntity<List<Currency>> getAllCodes(Authentication auth){
+        System.out.println(auth);
         List<Currency> array = currencyService.getAllCurrenciesRates();
         if(array.isEmpty()){
             throw new CurrencyNotFoundException("Array is empty.");

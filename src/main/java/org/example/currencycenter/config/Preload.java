@@ -1,10 +1,13 @@
 package org.example.currencycenter.config;
 
 import org.example.currencycenter.model.Currency;
+import org.example.currencycenter.model.Employee;
 import org.example.currencycenter.repository.CurrencyRepository;
+import org.example.currencycenter.repository.EmployeeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +16,13 @@ public class Preload  {
 
 
     @Bean
-    CommandLineRunner commandLineRunner(CurrencyRepository currencyRepository){
+    CommandLineRunner commandLineRunner(CurrencyRepository currencyRepository, EmployeeRepository employeeRepository, PasswordEncoder passwordEncoder){
         return args -> {
+
+            Employee user1 = new Employee();
+            user1.setUsername("mike");
+            user1.setPassword(passwordEncoder.encode("1234"));
+            employeeRepository.save(user1);
 
             List<Currency> currencies = new ArrayList<>();
 
