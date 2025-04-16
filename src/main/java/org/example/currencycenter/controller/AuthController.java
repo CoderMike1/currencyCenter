@@ -25,14 +25,17 @@ public class AuthController {
     public ResponseEntity<AuthenticationResponse> register(
            @Valid @RequestBody RequestEmployeePayload data
             ){
-        return ResponseEntity.ok(authService.register(data));
+        return ResponseEntity.status(201).body(authService.register(data));
     }
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(
             @Valid @RequestBody RequestEmployeePayload data
     ){
-        return ResponseEntity.ok(authService.authenticate(data));
+        return ResponseEntity.status(201).body(authService.authenticate(data));
     }
+
+
+
 
 
 }

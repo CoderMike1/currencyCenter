@@ -73,6 +73,9 @@ public class CurrencyService {
     }
 
     public boolean updateAllPricesBasedOnNBP(int percent){
+        if(percent < 0){
+            return false;
+        }
         try{
             HashMap<String,Double> rates = getRatesFromNBP();
 

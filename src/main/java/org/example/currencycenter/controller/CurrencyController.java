@@ -7,15 +7,11 @@ import org.example.currencycenter.dto.UpdateExchangeRate;
 import org.example.currencycenter.exception.CurrencyNotFoundException;
 import org.example.currencycenter.model.Currency;
 import org.example.currencycenter.service.CurrencyService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -28,8 +24,7 @@ public class CurrencyController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<List<Currency>> getAllCodes(Authentication auth){
-        System.out.println(auth);
+    public ResponseEntity<List<Currency>> getAllCodes(){
         List<Currency> array = currencyService.getAllCurrenciesRates();
         if(array.isEmpty()){
             throw new CurrencyNotFoundException("Array is empty.");
@@ -40,23 +35,29 @@ public class CurrencyController {
 
     }
 
-    @GetMapping("/update-nbp/{percent}")
-    public ResponseEntity<ResponseMessage> updateBasedOnNBPRates(@PathVariable int percent){
-        boolean result = currencyService.updateAllPricesBasedOnNBP(percent);
-
-        ResponseMessage message = new ResponseMessage(201,"successfully updated the rates based on nbp rates");
-
-        return ResponseEntity.status(201).contentType(MediaType.APPLICATION_JSON).body(message);
-
-
-    }
-
-
     @GetMapping("/get/{currency_code}")
     public ResponseEntity<Currency> getExchangeRate(@PathVariable String currency_code){
         Currency c = currencyService.getCode(currency_code);
 
         return ResponseEntity.status(200).contentType(MediaType.APPLICATION_JSON).body(c);
+    }
+
+    @GetMapping("/update-nbp/{percent}")
+    public ResponseEntity<ResponseMessage> updateBasedOnNBPRates(@PathVariable int percent){
+        boolean result = currencyService.updateAllPricesBasedOnNBP(percent);
+        int status;
+        ResponseMessage message;
+        if(result){
+            status = 201;
+            message = new ResponseMessage(status,"successfully updated the rates based on nbp rates");
+        }
+        else{
+            status = 401;
+            message = new ResponseMessage(status,"error while updating the rates...");
+        }
+
+        return ResponseEntity.status(201).contentType(MediaType.APPLICATION_JSON).body(message);
+
     }
 
     @PutMapping("/update/{currency_code}")

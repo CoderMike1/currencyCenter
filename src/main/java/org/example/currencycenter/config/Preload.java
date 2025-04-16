@@ -2,14 +2,19 @@ package org.example.currencycenter.config;
 
 import org.example.currencycenter.model.Currency;
 import org.example.currencycenter.model.Employee;
+import org.example.currencycenter.model.TRANSACTION_TYPE;
+import org.example.currencycenter.model.Transaction;
 import org.example.currencycenter.repository.CurrencyRepository;
 import org.example.currencycenter.repository.EmployeeRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.cglib.core.Local;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 @Configuration
 public class Preload  {
@@ -44,6 +49,10 @@ public class Preload  {
 
 
             currencyRepository.saveAll(currencies);
+
+
+
+
 
 
         };
