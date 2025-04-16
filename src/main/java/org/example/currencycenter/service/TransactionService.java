@@ -5,6 +5,7 @@ import org.example.currencycenter.dto.ResponseNewTransaction;
 import org.example.currencycenter.dto.TransactionDTO;
 import org.example.currencycenter.exception.CurrencyNotFoundException;
 import org.example.currencycenter.exception.InvalidPayload;
+import org.example.currencycenter.exception.TransactionNotFoundException;
 import org.example.currencycenter.model.Currency;
 import org.example.currencycenter.model.Employee;
 import org.example.currencycenter.model.TRANSACTION_TYPE;
@@ -30,6 +31,11 @@ public class TransactionService {
         this.currencyRepository = currencyRepository;
     }
 
+    public TransactionDTO getTransactionById(Long id){
+        Transaction t = transactionRepository.findById(id).orElseThrow(()-> new TransactionNotFoundException("transaction id "+id+" does not exist."));
+
+        return new TransactionDTO(id,t.getDate(),t.getType(),t.getCurrency().getCode(),t.getAmount(),t.getExchangeRate(),t.getExchangedAmount(),t.getEmployee().getId(),t.getEmployee().getUsername());
+    }
 
     public List<TransactionDTO> listAllTransactions(){
         List<Transaction> allT = transactionRepository.findAll();

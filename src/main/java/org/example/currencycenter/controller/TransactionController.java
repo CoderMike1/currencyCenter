@@ -31,6 +31,12 @@ public class TransactionController {
         List<TransactionDTO> all = transactionService.listAllTransactions();
         return ResponseEntity.status(200).contentType(MediaType.APPLICATION_JSON).body(all);
     }
+    @GetMapping("/get/{id}")
+    public ResponseEntity<TransactionDTO> getTransactionById(@PathVariable Long id){
+        TransactionDTO result = transactionService.getTransactionById(id);
+
+        return ResponseEntity.status(200).contentType(MediaType.APPLICATION_JSON).body(result);
+    }
 
     @PostMapping("/add")
     public ResponseEntity<ResponseNewTransaction> newTransaction(Authentication auth, @Valid @RequestBody RequestNewTransactionPayload body){

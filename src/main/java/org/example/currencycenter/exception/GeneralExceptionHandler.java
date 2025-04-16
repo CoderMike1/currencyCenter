@@ -29,7 +29,11 @@ public class GeneralExceptionHandler {
         ResponseMessage message = new ResponseMessage(401, ex.getMessage());
         return ResponseEntity.status(401).contentType(MediaType.APPLICATION_JSON).body(message);
     }
-
+    @ExceptionHandler(TransactionNotFoundException.class)
+    public ResponseEntity<ResponseMessage> handleTransactionNotFoundExceptionException(TransactionNotFoundException ex){
+        ResponseMessage message = new ResponseMessage(401, ex.getMessage());
+        return ResponseEntity.status(401).contentType(MediaType.APPLICATION_JSON).body(message);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
