@@ -6,6 +6,7 @@ import org.apache.coyote.Response;
 import org.example.currencycenter.dto.RequestNewTransactionPayload;
 import org.example.currencycenter.dto.ResponseMessage;
 import org.example.currencycenter.dto.ResponseNewTransaction;
+import org.example.currencycenter.dto.TransactionDTO;
 import org.example.currencycenter.model.Employee;
 import org.example.currencycenter.model.Transaction;
 import org.example.currencycenter.service.TransactionService;
@@ -26,9 +27,8 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
     @GetMapping("/get")
-    public ResponseEntity<List<Transaction>> showAllTransactions(){
-        List<Transaction> all = transactionService.listAllTransactions();
-
+    public ResponseEntity<List<TransactionDTO>> showAllTransactions(){
+        List<TransactionDTO> all = transactionService.listAllTransactions();
         return ResponseEntity.status(200).contentType(MediaType.APPLICATION_JSON).body(all);
     }
 

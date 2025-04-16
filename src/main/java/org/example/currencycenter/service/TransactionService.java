@@ -2,6 +2,7 @@ package org.example.currencycenter.service;
 
 import org.example.currencycenter.dto.RequestNewTransactionPayload;
 import org.example.currencycenter.dto.ResponseNewTransaction;
+import org.example.currencycenter.dto.TransactionDTO;
 import org.example.currencycenter.exception.CurrencyNotFoundException;
 import org.example.currencycenter.exception.InvalidPayload;
 import org.example.currencycenter.model.Currency;
@@ -14,6 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -28,10 +31,11 @@ public class TransactionService {
     }
 
 
-    public List<Transaction> listAllTransactions(){
+    public List<TransactionDTO> listAllTransactions(){
         List<Transaction> allT = transactionRepository.findAll();
-
-        return allT;
+        List<TransactionDTO> resp = new LinkedList<>();
+        allT.stream().forEach(t -> resp.add(new TransactionDTO(t.getId(),t.getDate(),t.getType(),t.getCurrency().getCode(),t.getAmount(),t.getExchangeRate(),t.getExchangedAmount(),t.getEmployee().getId(),t.getEmployee().getUsername())));
+        return resp;
     }
 
     public ResponseNewTransaction handleNewTransaction(Authentication auth, RequestNewTransactionPayload body){
