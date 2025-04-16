@@ -29,7 +29,7 @@
 
 ##  💻 Endpoints
 
-### 🧾 Register
+### 🟣 Register
 
 - **POST** `/auth/register`
 - **Request**
@@ -38,8 +38,9 @@
   "username": String,
   "password": String
 }
-
+```
 example:
+```json
 {
 "username": "john9283",
 "password": "StrongPassword123"
@@ -50,15 +51,36 @@ example:
 {
   "token": String
 }
+```
 
-example:
+### 🟣 Login
+
+- **POST** `/auth/login`
+- **Request**
+```json
 {
-  "token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtaWtlIiwiaWF0IjoxNzQ0Nzg5Njc1LCJleHAiOjE3NDQ4NzYwNzV9.LQYxN5PAP-97H3wWPBFQ3Yff1Kow-WyvkiocGGpaQEsMjo6Q522kDIokto5nwxnHVxDCTi1117hG_hdbwTGSPLKM"
+  "username": String,
+  "password": String
+}
+```
+example:
+```json
+{
+"username": "john9283",
+"password": "StrongPassword123"
+}
+```
+- **Response** `201`
+```json
+{
+  "token": String
 }
 ```
 
+### 🟣 Get all currency rates
 
-
+- **GET** `/api/get`
+- **Response** `200`
 
 
 
@@ -76,30 +98,6 @@ example:
 ## ENDPOINTS:
 
 
-**login:**
-
-method: POST
-url : /auth/login
-json:
-{
-    "username":STRING,
-    "password":STRING
-}
-success status code: 201
-success response : {"token":STRING}
-
-
-**register:**
-
-method: POST
-url : /auth/register
-json:
-{
-"username":STRING,
-"password":STRING
-}
-success status code: 201
-success response : {"token":STRING}
 
 **get all currency rates**
 
