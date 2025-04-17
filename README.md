@@ -48,21 +48,15 @@ It is constantly improve by adding new features and finally I'd  like to built a
 - **Request**
 ```json
 {
-  "username": String,
-  "password": String
+  "username": "<String>",
+  "password": "<String>"
 }
 ```
-example:
-```json
-{
-"username": "john9283",
-"password": "StrongPassword123"
-}
-```
+
 - **Response** `201`
 ```json
 {
-  "token": String
+  "token": "<String>"
 }
 ```
 
@@ -72,14 +66,14 @@ example:
 - **Request Body**
 ```json
 {
-  "username": String,
-  "password": String
+  "username": "<String>",
+  "password": "<String>"
 }
 ```
 - **Response** `201`
 ```json
 {
-  "token": String
+  "token": "<String>"
 }
 ```
 
@@ -93,12 +87,12 @@ example:
 - **Response** `200`
 ```json
 [{
-    "code":STRING,
-    "name":STRING,
-    "buy_rate":DOUBLE,
-    "sell_rate":DOUBLE
-}
-...
+    "code":"<String>",
+    "name":"<String>",
+    "buy_rate":"<Double>",
+    "sell_rate":"<Double>"
+},
+"..."
 ]
 ```
 
@@ -113,10 +107,10 @@ example:
 - **Response** `200`
 ```json
 {
-    "code":STRING,
-    "name":STRING,
-    "buy_rate":DOUBLE,
-    "sell_rate":DOUBLE
+    "code":"<String>",
+    "name":"<String>",
+    "buy_rate":"<Double>",
+    "sell_rate":"<Double>"
 }
 ```
 
@@ -149,8 +143,8 @@ example:
 - **Request Body**
 ```json
 {
-  "buy_rate":DOUBLE,
-  "sell_rate":DOUBLE
+  "buy_rate":"<Double>",
+  "sell_rate":"<Double>"
 }
 ```
 - **Response** `200`
@@ -171,9 +165,9 @@ example:
 - **Request Body**
 ```json
 {
-  "type":ENUM("BUY","SELL"),
-  "amount":DOUBLE,
-  "currency":STRING
+  "type":"<BUY | SELL>",
+  "amount":"<Double>",
+  "currency":"<String>"
 }
 ```
 - **Response** `201`
@@ -202,19 +196,19 @@ example:
 ```json
 [
   {
-    "id": LONG,
-    "date": STRING,
-    "type": ENUM("BUY","SELL"),
-    "currency": STRING,
-    "amount": DOUBLE,
-    "exchange_rate": DOUBLE,
-    "exchanged_amount": DOUBLE,
+    "id": "<Long>",
+    "date": "<String>",
+    "type": "<BUY | SELL>",
+    "currency": "<String>",
+    "amount": "<Double>",
+    "exchange_rate": "<Double>",
+    "exchanged_amount": "<Double>",
     "employee": {
-      "id": LONG,
-      "username":STRING
+      "id": "<Long>",
+      "username":"<String>"
     }
-  }
-  ...
+  },
+  "..."
 ]
 ```
 
@@ -229,16 +223,16 @@ example:
 - **Response** `200`
 ```json
 {
-  "id": LONG,
-  "date": STRING,
-  "type": ENUM("BUY","SELL"),
-  "currency": STRING,
-  "amount": DOUBLE,
-  "exchange_rate": DOUBLE,
-  "exchanged_amount": DOUBLE,
+  "id": "<Long>",
+  "date": "<String>",
+  "type": "<BUY | SELL>",
+  "currency": "<String>",
+  "amount": "<Double>",
+  "exchange_rate": "<Double>",
+  "exchanged_amount": "<Double>",
   "employee": {
-    "id": LONG,
-    "username":STRING
+    "id": "<Long>",
+    "username":"<String>"
   }
 }
 ```
