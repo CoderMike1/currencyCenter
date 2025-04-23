@@ -1,6 +1,7 @@
 package org.example.currencycenter.config;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.filter.CorsFilter;
 import org.example.currencycenter.filter.JwtAuthenticationFilter;
 import org.example.currencycenter.service.UserDetailsImpl;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,10 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableMethodSecurity
@@ -33,7 +38,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        return http.
+        return http
+                .cors(cors -> {}).
                 csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         req-> req.requestMatchers("/auth/login/**","/auth/register/**")
@@ -77,6 +83,19 @@ public class SecurityConfig {
             response.setContentType("application/json");
             response.getWriter().write("{\"error\": \"You must be authenticated to access this resource\"}");
         };
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 
 

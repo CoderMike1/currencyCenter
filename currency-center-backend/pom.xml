@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.example</groupId>
-    <artifactId>currencyCenter</artifactId>
+    <artifactId>currency-center-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>currencyCenter</name>
     <description>currencyCenter</description>
@@ -28,6 +28,8 @@
     </scm>
     <properties>
         <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
     <dependencies>
         <dependency>

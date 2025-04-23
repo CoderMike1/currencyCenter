@@ -68,7 +68,7 @@ public class TransactionService {
         double exchanged_amount = (double) y/100;
 
         Transaction t1 = new Transaction(
-                TRANSACTION_TYPE.BUY,
+                type,
                 LocalDateTime.now(),
                 amount,
                 exchange_rate,
