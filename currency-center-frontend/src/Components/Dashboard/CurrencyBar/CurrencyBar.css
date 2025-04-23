@@ -1,8 +1,8 @@
-.card{
+.bar-card{
     min-width: 200px;
 }
 
-.card:hover{
+.bar-card:hover{
     background-color: rgba(238, 186, 97, 0.39);
     cursor:pointer
 }

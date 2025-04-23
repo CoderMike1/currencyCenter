@@ -1,0 +1,10 @@
+{
+  "login_page":{
+    "log_in": "Zaloguj się",
+    "username": "Nazwa użytkownika",
+    "enter_username": "Podaj nazwę użytkownika",
+    "password": "Hasło",
+    "enter_password": "Podaj hasło",
+    "no_account": "Nie posiadasz konta? Stwórz je teraz!"
+  }
+}

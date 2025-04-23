@@ -1,41 +1,85 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    padding: 2rem
+.transaction-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f9f9f9;
 }
 
-.add-transaction-container{
-    border:2px solid green;
+.add-transaction-container {
+    max-width: 500px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border: 1px solid #e0e0e0;
 }
-label {
-    display:block;
-    margin-top:1rem;
-    margin-bottom: 0.5rem;
+
+.transaction-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
-.radio-group{
-    display:flex;
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-bottom: 0.4rem;
+    color: #555;
+}
+
+.radio-group {
+    display: flex;
     justify-content: center;
-    gap:1rem;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
-.amount-group {
-    display:flex;
-    flex-direction: column;
-    width: 150px;
-    margin:auto
+
+.radio-option {
+    font-weight: 500;
+    color: #333;
 }
-.currency-group{
-    margin-top:10px;
-    margin-bottom:30px;
+
+.amount-group,
+.currency-group {
+    margin-bottom: 1.5rem;
 }
-button{
-    margin-top: 1.5rem;
-    padding: 0.5rem 1rem;
+
+.amount-input,
+.currency-select {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #fff;
+}
+
+.result-display {
+    text-align: center;
+    font-weight: bold;
+    color: #28a745;
+    margin-top: 1rem;
+}
+
+.submit-button {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem;
     background-color: #007bff;
-    color:white;
-    border:none;
-    border-radius: 4px;
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
-button:hover{
-    background-color: #0056b3
+
+.submit-button:hover {
+    background-color: #0056b3;
 }

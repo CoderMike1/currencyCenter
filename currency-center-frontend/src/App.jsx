@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Login from "./Components/Login/Login.jsx";
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Register from "./Components/Register/Register.jsx";
+import SettingsBar from "./Components/SettingsBar/SettingsBar.jsx";
 
 function App() {
     const [token, setToken] = useState('');
@@ -27,6 +28,7 @@ function App() {
 
     return (
         <BrowserRouter>
+            <SettingsBar onLogout={handleLogout} isLoggedIn={token !== ""} />
             <Routes>
                 <Route
                     path="/login"
@@ -34,7 +36,7 @@ function App() {
                 />
                 <Route
                     path="/"
-                    element={token ? <Dashboard onLogout={handleLogout} /> : <Navigate to="/login" />}
+                    element={token ? <Dashboard  /> : <Navigate to="/login" />}
                 />
                 <Route
                     path="/register"

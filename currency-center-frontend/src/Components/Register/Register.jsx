@@ -34,7 +34,7 @@ const  Register = ({onLogin}) => {
     };
 
     return (
-        <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+        <div className="d-flex justify-content-center align-items-center vh-99">
             <div className="card p-4 shadow" style={{ width: "100%", maxWidth: "400px" }}>
                 <h3 className="text-center mb-4">Register</h3>
                 <form onSubmit={loginProcess}>
@@ -52,7 +52,7 @@ const  Register = ({onLogin}) => {
                         <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="form-control" id="password" placeholder="Confirm password" required />
                     </div>
 
-                    <button type="submit" className="btn btn-primary w-100">Log in</button>
+                    <button type="submit" className="btn btn-primary w-100">Create</button>
                 </form>
                 <Link to="/login" className="btn btn-link mt-3 w-100 text-center">
                     Already have an account? Log in

@@ -48,36 +48,40 @@ const NewTransactionForm = ({currencyRates}) => {
 
 
     return (
-        <div className="add-transaction-container">
+        <div className="transaction-wrapper">
+            <div className="add-transaction-container">
+                <h2 className="transaction-title">Add new transaction</h2>
+                <form onSubmit={(e) => createTransaction(e)} id="add-form">
+                    <label className="form-label">Transaction type:</label>
+                    <div className="radio-group">
+                        <label className="radio-option"><input type="radio" name="type" value="BUY" onChange={(e) =>setType(e.target.value)} required/>BUY</label>
+                        <label className="radio-option"><input type="radio" name="type" value="SELL" onChange={(e) =>setType(e.target.value)} required/>SELL</label>
+                    </div>
 
-        <h2>Add new transaction</h2>
-        <form onSubmit={(e) => createTransaction(e)} id="add-form">
-            <label>Transaction type:</label>
-            <div className="radio-group">
-                <label><input type="radio" name="type" value="BUY" onChange={(e) =>setType(e.target.value)} required/>BUY</label>
-                <label><input type="radio" name="type" value="SELL" onChange={(e) =>setType(e.target.value)} required/>SELL</label>
-            </div>
-            <div className="amount-group">
-            <label>Amount:</label>
-            <input type="number" id="amount" name="amount" min="0.01" step="0.01" onChange={(e) => setAmount(e.target.value)} required/>
-            </div>
-            <label>Currency:</label>
-            <div className="currency-group">
-                <select id="currency" name="currency" onClick={(e) => setCurrency(e.target.value)} required>
-                    <option value="">-- Choose currency --</option>
-                    {currencyRates.map((rate) => (
-                        <option key={rate.code} value={rate.code}>{rate.code}</option>
-                    ))}
-                </select>
-            </div>
+                    <div className="amount-group">
+                        <label className="form-label">Amount:</label>
+                        <input className="amount-input" type="number" id="amount" name="amount" min="0.01" step="0.01" onChange={(e) => setAmount(e.target.value)} required/>
+                    </div>
+                    <div className="currency-group">
+                        <label className="form-label">Currency:</label>
+                        <select className="currency-select"  name="currency" onClick={(e) => setCurrency(e.target.value)} required>
+                            <option value="">-- Choose currency --</option>
+                            {currencyRates.map((rate) => (
+                                <option key={rate.code} value={rate.code}>{rate.code}</option>
+                            ))}
+                        </select>
+                    </div>
 
-            <p>{result}</p>
-            <button type="submit">Submit</button>
+                    {result && <p className="result-display">{result}</p>}
+                    <button type="submit" className="submit-button">Submit</button>
 
-        </form>
+                </form>
+            </div>
         </div>
     )
 
 
 }
 export default NewTransactionForm
+
+

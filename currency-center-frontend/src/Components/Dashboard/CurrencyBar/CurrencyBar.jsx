@@ -44,7 +44,7 @@ const CurrencyBar = ({currencyRates}) => {
 
     return (
         <div className="position-relative bg-light p-2 shadow-sm">
-            <h5 className="mb-2 text-center">Aktualne kursy walut</h5>
+            <h5 className="mb-2 text-center">Currency Exchange Rates</h5>
             <button onClick={() => scroll(-200)} className="btn btn-light position-absolute top-50 start-0 translate-middle-y">
                 <i className="bi bi-chevron-left"></i>
             </button>
@@ -54,14 +54,14 @@ const CurrencyBar = ({currencyRates}) => {
                 ref={scrollRef}
             >
                 {currencyRates.map((rate) => (
-                    <div key={rate.code} className="card flex-shrink-0 p-3" onClick={() => {
+                    <div key={rate.code} className="bar-card flex-shrink-0 p-3" onClick={() => {
                         setSelectedCurrency(rate);
                         setSelectedCurrencyBuyRate(rate.buy_rate);
                         setSelectedCurrencySellRate(rate.sell_rate)
                     }}>
                         <h6>{rate.name} ({rate.code})</h6>
-                        <p className="mb-1"><strong>Kupno:</strong> {rate.buy_rate} PLN</p>
-                        <p className="mb-0"><strong>Sprzedaż:</strong> {rate.sell_rate} PLN</p>
+                        <p className="mb-1"><strong>Buy:</strong> {rate.buy_rate} PLN</p>
+                        <p className="mb-0"><strong>Sell:</strong> {rate.sell_rate} PLN</p>
                     </div>
                 ))}
             </div>

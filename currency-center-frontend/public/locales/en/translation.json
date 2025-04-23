@@ -1,0 +1,10 @@
+{
+  "login_page":{
+    "log_in": "Log in",
+    "username": "Username",
+    "enter_username": "Enter username",
+    "password": "Password",
+    "enter_password": "Enter password",
+    "no_account": "Don't have an account? Create a new one"
+  }
+}
