@@ -32,7 +32,6 @@ const Dashboard = ({ onLogout }) => {
     return (
         <>
         <div className="container mt-1 text-center">
-            <h1>{t('hello')}</h1>
             <h2>Welcome to the Dashboard</h2>
             <CurrencyBar currencyRates={currencyRates} />
             <div className="transaction-section">
