@@ -25,10 +25,12 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
     private final CurrencyRepository currencyRepository;
+    private final BalanceService balanceService;
 
-    public TransactionService(TransactionRepository transactionRepository, CurrencyRepository currencyRepository) {
+    public TransactionService(TransactionRepository transactionRepository, CurrencyRepository currencyRepository,BalanceService balanceService) {
         this.transactionRepository = transactionRepository;
         this.currencyRepository = currencyRepository;
+        this.balanceService = balanceService;
     }
 
     public TransactionDTO getTransactionById(Long id){
@@ -46,7 +48,6 @@ public class TransactionService {
 
     public ResponseNewTransaction handleNewTransaction(Authentication auth, RequestNewTransactionPayload body){
         ResponseNewTransaction resp = addNewTransaction(auth, body.currency(),body.type(),body.amount());
-
         return resp;
 
     }
@@ -54,19 +55,27 @@ public class TransactionService {
     private ResponseNewTransaction addNewTransaction(Authentication auth,String currency,TRANSACTION_TYPE type,double amount){
         Employee employee = (Employee) auth.getPrincipal();
         Currency currency_item = currencyRepository.findById(currency.toUpperCase()).orElseThrow(() -> new CurrencyNotFoundException("currency "+currency.toUpperCase()+" not found."));
-
         double exchange_rate;
+        String currency_to_check;
         if(type == TRANSACTION_TYPE.BUY){
             exchange_rate = currency_item.getBuy_rate();
+            currency_to_check = "PLN";
         }
         else {
             exchange_rate = currency_item.getSell_rate();
+            currency_to_check = currency;
         }
         double exchanged_amount_raw = exchange_rate * amount;
         double t = exchanged_amount_raw*100;
         int y = (int)t;
         double exchanged_amount = (double) y/100;
 
+        if(type == TRANSACTION_TYPE.BUY){
+            balanceService.ifEnoughMoneyOnAccount(currency_to_check,exchanged_amount);
+        }
+        else {
+            balanceService.ifEnoughMoneyOnAccount(currency_to_check,amount);
+        }
         Transaction t1 = new Transaction(
                 type,
                 LocalDateTime.now(),
@@ -90,10 +99,23 @@ public class TransactionService {
                     i.getExchangedAmount(),
                     i.getCurrency().getCode()
             );
+
+            handleBalance(type,i.getCurrency().getCode(),i.getAmount(),i.getExchangedAmount());
+
             return resp;
         }
 
 
+    }
+    private void handleBalance(TRANSACTION_TYPE type,String currency, double amount, double exchanged_amount){
+        if(type == TRANSACTION_TYPE.BUY){
+            balanceService.addAmount(currency,amount);
+            balanceService.subtractAmount("PLN",exchanged_amount);
+        }
+        else{
+            balanceService.addAmount("PLN",exchanged_amount);
+            balanceService.subtractAmount(currency,amount);
+        }
     }
 
 

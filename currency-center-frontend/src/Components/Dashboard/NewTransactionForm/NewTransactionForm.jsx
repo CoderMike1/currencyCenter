@@ -42,6 +42,7 @@ const NewTransactionForm = ({currencyRates}) => {
             location.reload()
         }
         else{
+            console.log(resp.json())
             alert("error while adding new transaction...")
         }
     }

@@ -1,9 +1,7 @@
 package org.example.currencycenter.config;
 
-import org.example.currencycenter.model.Currency;
-import org.example.currencycenter.model.Employee;
-import org.example.currencycenter.model.TRANSACTION_TYPE;
-import org.example.currencycenter.model.Transaction;
+import org.example.currencycenter.model.*;
+import org.example.currencycenter.repository.BalanceRepository;
 import org.example.currencycenter.repository.CurrencyRepository;
 import org.example.currencycenter.repository.EmployeeRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -21,9 +19,16 @@ public class Preload  {
 
 
     @Bean
-    CommandLineRunner commandLineRunner(CurrencyRepository currencyRepository, EmployeeRepository employeeRepository, PasswordEncoder passwordEncoder){
+    CommandLineRunner commandLineRunner(CurrencyRepository currencyRepository, EmployeeRepository employeeRepository, PasswordEncoder passwordEncoder, BalanceRepository balanceRepository){
         return args -> {
-
+            balanceRepository.saveAll(
+                    List.of(
+                            new Balance("PLN",2500),
+                            new Balance("USD",1000),
+                            new Balance("EUR",9912)
+                    )
+            );
+            balanceRepository.addAmount("EUR",3);
             Employee user1 = new Employee();
             user1.setUsername("mike");
             user1.setPassword(passwordEncoder.encode("1234"));

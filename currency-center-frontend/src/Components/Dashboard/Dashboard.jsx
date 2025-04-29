@@ -4,6 +4,7 @@ import NewTransactionForm from "./NewTransactionForm/NewTransactionForm.jsx";
 import "./Dashboard.css"
 import TransactionHistory from "./TransactionHistory/TransactionHistory.jsx";
 import {useTranslation} from "react-i18next";
+import CurrentBalance from "./CurrentBalance/CurrentBalance.jsx";
 const Dashboard = ({ onLogout }) => {
     const { t } = useTranslation();
     const token = sessionStorage.getItem("token");
@@ -33,6 +34,7 @@ const Dashboard = ({ onLogout }) => {
         <>
         <div className="container mt-1 text-center">
             <h2>Welcome to the Dashboard</h2>
+            <CurrentBalance />
             <CurrencyBar currencyRates={currencyRates} />
             <div className="transaction-section">
                 <NewTransactionForm currencyRates={currencyRates} />

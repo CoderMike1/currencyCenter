@@ -3,12 +3,11 @@ package org.example.currencycenter.controller;
 
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
-import org.example.currencycenter.dto.RequestNewTransactionPayload;
-import org.example.currencycenter.dto.ResponseMessage;
-import org.example.currencycenter.dto.ResponseNewTransaction;
-import org.example.currencycenter.dto.TransactionDTO;
+import org.example.currencycenter.dto.*;
+import org.example.currencycenter.model.Balance;
 import org.example.currencycenter.model.Employee;
 import org.example.currencycenter.model.Transaction;
+import org.example.currencycenter.service.BalanceService;
 import org.example.currencycenter.service.TransactionService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +21,11 @@ import java.util.List;
 public class TransactionController {
 
     private TransactionService transactionService;
+    private BalanceService balanceService;
 
-    public TransactionController(TransactionService transactionService){
+    public TransactionController(TransactionService transactionService,BalanceService balanceService){
         this.transactionService = transactionService;
+        this.balanceService = balanceService;
     }
     @GetMapping("/get")
     public ResponseEntity<List<TransactionDTO>> showAllTransactions(){
@@ -41,6 +42,14 @@ public class TransactionController {
     @PostMapping("/add")
     public ResponseEntity<ResponseNewTransaction> newTransaction(Authentication auth, @Valid @RequestBody RequestNewTransactionPayload body){
         ResponseNewTransaction resp = transactionService.handleNewTransaction(auth,body);
+
+        return ResponseEntity.status(201).contentType(MediaType.APPLICATION_JSON).body(resp);
+    }
+
+    @GetMapping("/get-balance")
+    public ResponseEntity<GetBalanceDTO> getBalance(){
+
+        GetBalanceDTO resp = new GetBalanceDTO(201,balanceService.getBalanceList());
 
         return ResponseEntity.status(201).contentType(MediaType.APPLICATION_JSON).body(resp);
     }

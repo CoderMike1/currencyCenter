@@ -15,7 +15,7 @@ const TransactionHistory = () => {
             });
             if(resp.status === 200){
                 const data = await resp.json();
-                setHistory(data);
+                setHistory(data.sort((a,b) => a.id - b.id));
             }
             else{
                 alert("error while fetching transaction history data.")
