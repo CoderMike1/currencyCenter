@@ -5,6 +5,7 @@ import org.example.currencycenter.dto.ResponseNewTransaction;
 import org.example.currencycenter.dto.TransactionDTO;
 import org.example.currencycenter.exception.CurrencyNotFoundException;
 import org.example.currencycenter.exception.InvalidPayload;
+import org.example.currencycenter.exception.QueryDBException;
 import org.example.currencycenter.exception.TransactionNotFoundException;
 import org.example.currencycenter.model.Currency;
 import org.example.currencycenter.model.Employee;
@@ -19,6 +20,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransactionService {
@@ -47,12 +49,27 @@ public class TransactionService {
     }
 
     public void deleteTransaction(Long id){
-        boolean transaction = transactionRepository.existsById(id);
-        if(transaction){
-            transactionRepository.deleteById(id);
+        Optional<Transaction> transaction = transactionRepository.findById(id);
+        if(!transaction.isPresent()){
+            throw new TransactionNotFoundException("Transaction with id "+id+" not found.");
         }
         else{
-            throw new TransactionNotFoundException("Transaction with id "+id+" not found.");
+            transactionRepository.deleteById(id);
+            boolean stillExists = transactionRepository.existsById(id);
+            if(stillExists){
+                throw new QueryDBException("Error while deleting transaction item id : "+id);
+            }
+            else{
+                Transaction t = transaction.get();
+                if(t.getType() == TRANSACTION_TYPE.BUY){
+                    balanceService.addAmount("PLN",t.getExchangedAmount());
+                    balanceService.subtractAmount(t.getCurrency().getCode(),t.getAmount());
+                }
+                else if(t.getType() == TRANSACTION_TYPE.SELL){
+                    balanceService.addAmount(t.getCurrency().getCode(),t.getAmount());
+                    balanceService.subtractAmount("PLN",t.getExchangedAmount());
+                }
+            }
         }
     }
 

@@ -2,7 +2,7 @@
 
 .currency-balance-p{
     font-weight:bold;
-    border: 1px solid green;
+    font-size:1.3rem
 }
 
 
@@ -10,4 +10,5 @@
     display: flex;
     justify-content: center;
     gap:20px;
+    background-color: rgba(167, 225, 185, 0.19)
 }

@@ -47,7 +47,6 @@ public class TransactionController {
     public ResponseEntity<ResponseMessage> deleteTransaction(@PathVariable Long id){
         transactionService.deleteTransaction(id);
         ResponseMessage message = new ResponseMessage(201,"Successfully deleted transaction...");
-
         return ResponseEntity.status(message.status()).body(message);
     }
 

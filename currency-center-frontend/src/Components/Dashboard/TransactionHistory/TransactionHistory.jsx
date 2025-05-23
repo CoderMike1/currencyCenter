@@ -49,7 +49,7 @@ const TransactionHistory = () => {
                     <td>{transaction.type}</td>
                     <td>{transaction.currency}</td>
                     <td>{transaction.amount}</td>
-                    <td>{transaction.exchange_rate}</td>
+                    <td>{transaction.exchange_rate} PLN</td>
                     <td>{transaction.exchanged_amount} PLN</td>
                     <td>{transaction.employee.username}</td>
                 </tr>
