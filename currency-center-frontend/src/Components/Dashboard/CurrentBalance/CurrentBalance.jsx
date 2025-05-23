@@ -28,10 +28,12 @@ const CurrentBalance = ()=>{
 
     return (
         <>
-        <p>Current currency balance:</p>
-            {balanceList.map((i)=> (
-                <p className="currency-balance-p" key={i.id}>{i.amount} {i.currency_code}</p>
-            ))}
+        <h6>Current currency balance:</h6>
+            <div className="currency-balance-d">
+                {balanceList.map((i)=> (
+                    <p className="currency-balance-p" key={i.id}>{i.amount} {i.currency_code}</p>
+                ))}
+            </div>
         </>
     )
 }

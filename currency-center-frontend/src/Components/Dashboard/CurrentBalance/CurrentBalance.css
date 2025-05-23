@@ -2,4 +2,12 @@
 
 .currency-balance-p{
     font-weight:bold;
+    border: 1px solid green;
+}
+
+
+.currency-balance-d{
+    display: flex;
+    justify-content: center;
+    gap:20px;
 }
