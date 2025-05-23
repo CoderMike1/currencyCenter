@@ -11,6 +11,8 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -72,8 +74,8 @@ public class CurrencyService {
         return array;
     }
 
-    public boolean updateAllPricesBasedOnNBP(int percent){
-        if(percent < 0){
+    public boolean updateAllPricesBasedOnNBP(BigDecimal percent){
+        if(percent.compareTo(BigDecimal.ZERO)<0){
             return false;
         }
         try{
@@ -85,9 +87,13 @@ public class CurrencyService {
                     continue;
                 }
                 else{
-                    double profit = (percent * r.getValue())/100;
-                    double new_buy_rate = Math.round((r.getValue()-profit)*100)/100.d;
-                    double new_sell_rate = Math.round((r.getValue()+profit)*100)/100.d;
+                    BigDecimal value = BigDecimal.valueOf(r.getValue());
+                    BigDecimal profit = value.multiply(percent).divide(BigDecimal.valueOf(100),10, RoundingMode.HALF_UP);
+                    //double profit = (percent * r.getValue())/100;
+                    BigDecimal new_buy_rate = value.subtract(profit).setScale(2,RoundingMode.HALF_UP);
+                    //double new_buy_rate = Math.round((r.getValue()-profit)*100)/100.d;
+                    BigDecimal new_sell_rate = value.add(profit).setScale(2,RoundingMode.HALF_UP);
+                    //double new_sell_rate = Math.round((r.getValue()+profit)*100)/100.d;
                     currencyRepository.updateValues(r.getKey(),new_buy_rate,new_sell_rate);
                 }
             }

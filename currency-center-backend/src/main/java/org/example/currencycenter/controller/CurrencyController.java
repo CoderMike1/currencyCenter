@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -48,7 +49,7 @@ public class CurrencyController {
     }
 
     @GetMapping("/update-nbp/{percent}")
-    public ResponseEntity<ResponseMessage> updateBasedOnNBPRates(@PathVariable int percent){
+    public ResponseEntity<ResponseMessage> updateBasedOnNBPRates(@PathVariable BigDecimal percent){
         boolean result = currencyService.updateAllPricesBasedOnNBP(percent);
         int status;
         ResponseMessage message;

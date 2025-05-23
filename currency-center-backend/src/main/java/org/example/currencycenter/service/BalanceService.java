@@ -6,6 +6,7 @@ import org.example.currencycenter.model.Balance;
 import org.example.currencycenter.repository.BalanceRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -23,7 +24,7 @@ public class BalanceService {
         return balanceList;
     }
 
-    public boolean addAmount(String currencyCode, double amount){
+    public boolean addAmount(String currencyCode, BigDecimal amount){
         int resp = balanceRepository.addAmount(currencyCode,amount);
         if(resp>0){
             return true;
@@ -32,13 +33,14 @@ public class BalanceService {
             throw new QueryDBException("error while adding amount...");
         }
     }
-    public void ifEnoughMoneyOnAccount(String currencyCode, double amount){
-        double currency_balance = balanceRepository.getAmount(currencyCode);
-        if(currency_balance<amount){
+    public void ifEnoughMoneyOnAccount(String currencyCode, BigDecimal amount){
+        BigDecimal currency_balance = balanceRepository.getAmount(currencyCode);
+        if(currency_balance.compareTo(amount) < 0){
             throw new InsufficientAccountBalance("not enough money on account balance...");
         }
+
     }
-    public boolean subtractAmount(String currencyCode, double amount){
+    public boolean subtractAmount(String currencyCode, BigDecimal amount){
         int resp = balanceRepository.subtractAmount(currencyCode,amount);
         if(resp>0){
             return true;

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -15,8 +16,8 @@ public interface CurrencyRepository extends JpaRepository<Currency, String> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE Currency c SET c.buy_rate = :buy_rate , c.sell_rate = :sell_rate WHERE c.code = :currency_code")
-    int updateValues(String currency_code, double buy_rate, double sell_rate);
+    @Query("UPDATE Currency c SET c.buyRate = :buy_rate , c.sellRate = :sell_rate WHERE c.code = :currency_code")
+    int updateValues(String currency_code, BigDecimal buy_rate, BigDecimal sell_rate);
 
 
     @Query("SELECT c.code FROM Currency c")

@@ -15,11 +15,10 @@ import org.example.currencycenter.repository.TransactionRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TransactionService {
@@ -63,23 +62,20 @@ public class TransactionService {
 
     }
 
-    private ResponseNewTransaction addNewTransaction(Authentication auth,String currency,TRANSACTION_TYPE type,double amount){
+    private ResponseNewTransaction addNewTransaction(Authentication auth, String currency, TRANSACTION_TYPE type, BigDecimal amount){
         Employee employee = (Employee) auth.getPrincipal();
         Currency currency_item = currencyRepository.findById(currency.toUpperCase()).orElseThrow(() -> new CurrencyNotFoundException("currency "+currency.toUpperCase()+" not found."));
-        double exchange_rate;
+        BigDecimal exchange_rate;
         String currency_to_check;
         if(type == TRANSACTION_TYPE.BUY){
-            exchange_rate = currency_item.getBuy_rate();
+            exchange_rate = currency_item.getBuyRate();
             currency_to_check = "PLN";
         }
         else {
-            exchange_rate = currency_item.getSell_rate();
+            exchange_rate = currency_item.getSellRate();
             currency_to_check = currency;
         }
-        double exchanged_amount_raw = exchange_rate * amount;
-        double t = exchanged_amount_raw*100;
-        int y = (int)t;
-        double exchanged_amount = (double) y/100;
+        BigDecimal exchanged_amount = exchange_rate.multiply(amount);
 
         if(type == TRANSACTION_TYPE.BUY){
             balanceService.ifEnoughMoneyOnAccount(currency_to_check,exchanged_amount);
@@ -118,7 +114,7 @@ public class TransactionService {
 
 
     }
-    private void handleBalance(TRANSACTION_TYPE type,String currency, double amount, double exchanged_amount){
+    private void handleBalance(TRANSACTION_TYPE type,String currency, BigDecimal amount, BigDecimal exchanged_amount){
         if(type == TRANSACTION_TYPE.BUY){
             balanceService.addAmount(currency,amount);
             balanceService.subtractAmount("PLN",exchanged_amount);

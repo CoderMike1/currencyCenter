@@ -2,6 +2,7 @@ package org.example.currencycenter.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,9 +14,9 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     private TRANSACTION_TYPE type;
     private LocalDateTime date;
-    private double amount;
-    private double exchangeRate;
-    private double exchangedAmount;
+    private BigDecimal amount;
+    private BigDecimal exchangeRate;
+    private BigDecimal exchangedAmount;
     @ManyToOne
     @JoinColumn(name = "currency_code")
     private Currency currency;
@@ -27,7 +28,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(TRANSACTION_TYPE type, LocalDateTime date, double amount, double exchangeRate, double exchangedAmount, Currency currency, Employee employee) {
+    public Transaction(TRANSACTION_TYPE type, LocalDateTime date, BigDecimal amount, BigDecimal exchangeRate, BigDecimal exchangedAmount, Currency currency, Employee employee) {
         this.type = type;
         this.date = date;
         this.amount = amount;
@@ -77,27 +78,27 @@ public class Transaction {
         this.date = date;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
-    public double getExchangeRate() {
+    public BigDecimal getExchangeRate() {
         return exchangeRate;
     }
 
-    public void setExchangeRate(double exchangeRate) {
+    public void setExchangeRate(BigDecimal exchangeRate) {
         this.exchangeRate = exchangeRate;
     }
 
-    public double getExchangedAmount() {
+    public BigDecimal getExchangedAmount() {
         return exchangedAmount;
     }
 
-    public void setExchangedAmount(double exchangedAmount) {
+    public void setExchangedAmount(BigDecimal exchangedAmount) {
         this.exchangedAmount = exchangedAmount;
     }
 

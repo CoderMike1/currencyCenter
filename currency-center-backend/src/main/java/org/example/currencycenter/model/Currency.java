@@ -1,26 +1,26 @@
 package org.example.currencycenter.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 
 @Entity
 public class Currency {
     @Id
     private String code;
     private String name;
-    private double buy_rate;
-    private double sell_rate;
+    @Column(scale=2)
+    private BigDecimal buyRate;
+    @Column(scale=2)
+    private BigDecimal sellRate;
 
     public Currency(){}
 
-
-    public Currency(String code, String name, double buy_rate, double sell_rate) {
+    public Currency(String code, String name, BigDecimal buyRate, BigDecimal sellRate) {
         this.code = code;
         this.name = name;
-        this.buy_rate = buy_rate;
-        this.sell_rate = sell_rate;
+        this.buyRate = buyRate;
+        this.sellRate = sellRate;
     }
 
     public String getCode() {
@@ -39,19 +39,19 @@ public class Currency {
         this.name = name;
     }
 
-    public double getBuy_rate() {
-        return buy_rate;
+    public BigDecimal getBuyRate() {
+        return buyRate;
     }
 
-    public void setBuy_rate(double buy_rate) {
-        this.buy_rate = buy_rate;
+    public void setBuyRate(BigDecimal buyRate) {
+        this.buyRate = buyRate;
     }
 
-    public double getSell_rate() {
-        return sell_rate;
+    public BigDecimal getSellRate() {
+        return sellRate;
     }
 
-    public void setSell_rate(double sell_rate) {
-        this.sell_rate = sell_rate;
+    public void setSellRate(BigDecimal sellRate) {
+        this.sellRate = sellRate;
     }
 }

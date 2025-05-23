@@ -2,5 +2,7 @@ package org.example.currencycenter.dto;
 
 import jakarta.validation.constraints.Positive;
 
-public record UpdateExchangeRate(@Positive double buy_rate, @Positive double sell_rate) {
+import java.math.BigDecimal;
+
+public record UpdateExchangeRate(@Positive BigDecimal buy_rate, @Positive BigDecimal sell_rate) {
 }

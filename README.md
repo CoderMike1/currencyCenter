@@ -237,3 +237,19 @@ It is constantly improve by adding new features and finally I'd  like to built a
 }
 ```
 
+### 🟣 Delete transaction by id
+
+- **GET** `/api/transaction/delete/{id}`
+- **URL Example** `/api/transaction/delete/1`
+- **Request Header**
+```json
+{"Authorization": "Bearer {token}"}
+```
+- **Response** `201`
+```json
+{
+  "status": 200,
+  "message": "Successfully deleted transaction..."
+}
+```
+

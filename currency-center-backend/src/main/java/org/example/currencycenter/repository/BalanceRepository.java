@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -15,15 +16,15 @@ public interface BalanceRepository extends JpaRepository<Balance,Long> {
     @Transactional
     @Modifying
     @Query("UPDATE Balance b SET b.amount = b.amount + :amount WHERE b.currency_code=:currencyCode")
-    int addAmount(String currencyCode, double amount);
+    int addAmount(String currencyCode, BigDecimal amount);
 
     @Transactional
     @Modifying
     @Query("UPDATE Balance b SET b.amount = b.amount - :amount WHERE b.currency_code=:currencyCode")
-    int subtractAmount(String currencyCode, double amount);
+    int subtractAmount(String currencyCode, BigDecimal amount);
 
     @Query("SELECT b.amount FROM Balance b WHERE b.currency_code=:currency")
-    double getAmount(String currency);
+    BigDecimal getAmount(String currency);
 
     @Query("SELECT b FROM Balance b WHERE b.amount > 0")
     List<Balance> findPositiveBalance();

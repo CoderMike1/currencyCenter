@@ -56,12 +56,12 @@ const CurrencyBar = ({currencyRates}) => {
                 {currencyRates.map((rate) => (
                     <div key={rate.code} className="bar-card flex-shrink-0 p-3" onClick={() => {
                         setSelectedCurrency(rate);
-                        setSelectedCurrencyBuyRate(rate.buy_rate);
-                        setSelectedCurrencySellRate(rate.sell_rate)
+                        setSelectedCurrencyBuyRate(rate.buyRate);
+                        setSelectedCurrencySellRate(rate.sellRate)
                     }}>
                         <h6>{rate.name} ({rate.code})</h6>
-                        <p className="mb-1"><strong>Buy:</strong> {rate.buy_rate} PLN</p>
-                        <p className="mb-0"><strong>Sell:</strong> {rate.sell_rate} PLN</p>
+                        <p className="mb-1"><strong>Buy:</strong> {rate.buyRate} PLN</p>
+                        <p className="mb-0"><strong>Sell:</strong> {rate.sellRate} PLN</p>
                     </div>
                 ))}
             </div>
@@ -76,7 +76,7 @@ const CurrencyBar = ({currencyRates}) => {
                         <form className="update-rate-form" onSubmit={updateRate}>
                             <label><strong>Buy rate:</strong><input
                                 type="number"
-                                defaultValue={selectedCurrency.buy_rate}
+                                defaultValue={selectedCurrency.buyRate}
                                 id="r-amount" name="amount" min="0.01" step="0.01"
                                 onChange={(e) => setSelectedCurrencyBuyRate(e.target.value)}
                             /></label>
@@ -84,7 +84,7 @@ const CurrencyBar = ({currencyRates}) => {
                                 <strong>Sell rate:</strong>
                                 <input
                                     type="number"
-                                    defaultValue={selectedCurrency.sell_rate}
+                                    defaultValue={selectedCurrency.sellRate}
                                     id="r-amount" name="amount" min="0.01" step="0.01"
                                     onChange={(e) => setSelectedCurrencySellRate(e.target.value)}
                                     />

@@ -13,10 +13,10 @@ const NewTransactionForm = ({currencyRates}) => {
         if(type && amount >0 && currency){
             let rate1;
             if(type === "BUY"){
-                rate1 = currencyRates.find((rate) => rate.code === currency).buy_rate;
+                rate1 = currencyRates.find((rate) => rate.code === currency).buyRate;
             }
             if(type === "SELL"){
-                rate1 = currencyRates.find((rate) => rate.code === currency).sell_rate;
+                rate1 = currencyRates.find((rate) => rate.code === currency).sellRate;
             }
             setRateAmount((amount*rate1).toFixed(2));
             setResult(rateAmount+" PLN");

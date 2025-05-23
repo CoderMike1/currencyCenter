@@ -1,9 +1,8 @@
 package org.example.currencycenter.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 
 @Entity
 public class Balance {
@@ -12,11 +11,13 @@ public class Balance {
     private Long id;
 
     private String currency_code;
-    private double amount;
+
+    @Column(scale=2)
+    private BigDecimal amount;
 
     public Balance() {
     }
-    public Balance( String currency_code, double amount) {
+    public Balance( String currency_code, BigDecimal amount) {
         this.currency_code = currency_code;
         this.amount = amount;
     }
@@ -37,11 +38,11 @@ public class Balance {
         this.currency_code = currency_code;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 }
