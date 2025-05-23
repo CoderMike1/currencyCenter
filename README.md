@@ -28,7 +28,7 @@ It is constantly improve by adding new features and finally I'd  like to built a
 - [x] Authentication system with JWT (login / register)
 - [x] Add transaction system (BUY / SELL)
 - [x] Add requests validation
-- [ ] Add UI
+- [x] Add UI
 - [ ] Add unit & integration tests
 - [ ] Dockerize the app
 - [ ] Add monthly reports
