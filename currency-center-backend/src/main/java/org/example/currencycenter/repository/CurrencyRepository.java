@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CurrencyRepository extends JpaRepository<Currency, String> {
 
@@ -16,5 +18,11 @@ public interface CurrencyRepository extends JpaRepository<Currency, String> {
     @Query("UPDATE Currency c SET c.buy_rate = :buy_rate , c.sell_rate = :sell_rate WHERE c.code = :currency_code")
     int updateValues(String currency_code, double buy_rate, double sell_rate);
 
+
+    @Query("SELECT c.code FROM Currency c")
+    List<String> getAllCurrencies();
+
+    @Query("SELECT c FROM Currency c WHERE c.code != 'PLN'")
+    List<Currency> getAll();
 
 }

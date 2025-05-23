@@ -2,10 +2,12 @@ package org.example.currencycenter.controller;
 
 
 import jakarta.validation.Valid;
+import org.example.currencycenter.dto.GetBalanceDTO;
 import org.example.currencycenter.dto.ResponseMessage;
 import org.example.currencycenter.dto.UpdateExchangeRate;
 import org.example.currencycenter.exception.CurrencyNotFoundException;
 import org.example.currencycenter.model.Currency;
+import org.example.currencycenter.service.BalanceService;
 import org.example.currencycenter.service.CurrencyService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +20,12 @@ import java.util.List;
 public class CurrencyController {
 
     private CurrencyService currencyService;
+    private BalanceService balanceService;
 
-    public CurrencyController(CurrencyService currencyService){
+
+    public CurrencyController(CurrencyService currencyService,BalanceService balanceService){
         this.currencyService = currencyService;
+        this.balanceService = balanceService;
     }
 
     @GetMapping("/get")
@@ -68,6 +73,14 @@ public class CurrencyController {
         return ResponseEntity.status(200).contentType(MediaType.APPLICATION_JSON).body(message);
 
     }
+    @GetMapping("/get-balance")
+    public ResponseEntity<GetBalanceDTO> getBalance(){
+
+        GetBalanceDTO resp = new GetBalanceDTO(201,balanceService.getBalanceList());
+
+        return ResponseEntity.status(201).contentType(MediaType.APPLICATION_JSON).body(resp);
+    }
+
 
 
 

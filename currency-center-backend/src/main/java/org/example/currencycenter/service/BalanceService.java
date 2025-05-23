@@ -18,7 +18,7 @@ public class BalanceService {
     }
 
     public List<Balance> getBalanceList(){
-        List<Balance> balanceList = balanceRepository.findAll();
+        List<Balance> balanceList = balanceRepository.findPositiveBalance();
 
         return balanceList;
     }

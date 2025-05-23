@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransactionService {
@@ -44,6 +45,16 @@ public class TransactionService {
         List<TransactionDTO> resp = new LinkedList<>();
         allT.stream().forEach(t -> resp.add(new TransactionDTO(t.getId(),t.getDate(),t.getType(),t.getCurrency().getCode(),t.getAmount(),t.getExchangeRate(),t.getExchangedAmount(),t.getEmployee().getId(),t.getEmployee().getUsername())));
         return resp;
+    }
+
+    public void deleteTransaction(Long id){
+        boolean transaction = transactionRepository.existsById(id);
+        if(transaction){
+            transactionRepository.deleteById(id);
+        }
+        else{
+            throw new TransactionNotFoundException("Transaction with id "+id+" not found.");
+        }
     }
 
     public ResponseNewTransaction handleNewTransaction(Authentication auth, RequestNewTransactionPayload body){

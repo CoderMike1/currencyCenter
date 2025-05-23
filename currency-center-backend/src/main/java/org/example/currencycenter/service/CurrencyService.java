@@ -26,7 +26,7 @@ public class CurrencyService {
     }
 
     public List<Currency> getAllCurrenciesRates(){
-        return currencyRepository.findAll();
+        return currencyRepository.getAll();
     }
 
     public Currency getCode(String code){

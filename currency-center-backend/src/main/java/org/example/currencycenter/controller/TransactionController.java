@@ -4,9 +4,6 @@ package org.example.currencycenter.controller;
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.example.currencycenter.dto.*;
-import org.example.currencycenter.model.Balance;
-import org.example.currencycenter.model.Employee;
-import org.example.currencycenter.model.Transaction;
 import org.example.currencycenter.service.BalanceService;
 import org.example.currencycenter.service.TransactionService;
 import org.springframework.http.MediaType;
@@ -21,11 +18,11 @@ import java.util.List;
 public class TransactionController {
 
     private TransactionService transactionService;
-    private BalanceService balanceService;
 
-    public TransactionController(TransactionService transactionService,BalanceService balanceService){
+
+    public TransactionController(TransactionService transactionService){
         this.transactionService = transactionService;
-        this.balanceService = balanceService;
+
     }
     @GetMapping("/get")
     public ResponseEntity<List<TransactionDTO>> showAllTransactions(){
@@ -46,13 +43,17 @@ public class TransactionController {
         return ResponseEntity.status(201).contentType(MediaType.APPLICATION_JSON).body(resp);
     }
 
-    @GetMapping("/get-balance")
-    public ResponseEntity<GetBalanceDTO> getBalance(){
+    @GetMapping("/delete/{id}")
+    public ResponseEntity<ResponseMessage> deleteTransaction(@PathVariable Long id){
+        transactionService.deleteTransaction(id);
+        ResponseMessage message = new ResponseMessage(201,"Successfully deleted transaction...");
 
-        GetBalanceDTO resp = new GetBalanceDTO(201,balanceService.getBalanceList());
-
-        return ResponseEntity.status(201).contentType(MediaType.APPLICATION_JSON).body(resp);
+        return ResponseEntity.status(message.status()).body(message);
     }
+
+
+
+
 
 
 

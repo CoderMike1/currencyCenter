@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BalanceRepository extends JpaRepository<Balance,Long> {
 
@@ -22,6 +24,9 @@ public interface BalanceRepository extends JpaRepository<Balance,Long> {
 
     @Query("SELECT b.amount FROM Balance b WHERE b.currency_code=:currency")
     double getAmount(String currency);
+
+    @Query("SELECT b FROM Balance b WHERE b.amount > 0")
+    List<Balance> findPositiveBalance();
 
 
 }

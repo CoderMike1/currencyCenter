@@ -8,7 +8,7 @@ const CurrentBalance = ()=>{
 
         const getBalance = async () =>{
 
-            const resp = await fetch("http://127.0.0.1:8080/api/transaction/get-balance",{
+            const resp = await fetch("http://127.0.0.1:8080/api/get-balance",{
                 method:"GET",
                 headers:{
                     "Authorization":"Bearer "+sessionStorage.getItem("token")
