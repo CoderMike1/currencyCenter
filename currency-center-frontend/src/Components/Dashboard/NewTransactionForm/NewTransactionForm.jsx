@@ -26,7 +26,6 @@ const NewTransactionForm = ({currencyRates}) => {
 
     const createTransaction = async (e) =>{
         e.preventDefault();
-        console.log(type)
         const resp = await fetch("http://127.0.0.1:8080/api/transaction/add",{
             method:"POST",
             headers:{

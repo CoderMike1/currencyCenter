@@ -77,6 +77,24 @@ It is constantly improve by adding new features and finally I'd  like to built a
 }
 ```
 
+### 🟣 Change password
+
+- **POST** `/auth/change-password`
+- **Request Body**
+```json
+{
+  "old_password": "<String>",
+  "new_password": "<String>"
+}
+```
+- **Response** `201`
+```json
+{
+  "status": "<Int>",
+  "message": "<String>"
+}
+```
+
 ### 🟣 Get all currency rates
 
 - **GET** `/api/get`

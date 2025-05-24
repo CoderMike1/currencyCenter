@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import Login from "./Components/Login/Login.jsx";
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Register from "./Components/Register/Register.jsx";
-import SettingsBar from "./Components/SettingsBar/SettingsBar.jsx";
+import MenuBar from "./Components/MenuBar/MenuBar.jsx";
+import Settings from "./Components/Settings/Settings.jsx";
 
 function App() {
     const [token, setToken] = useState('');
+    const [settingsON, setSettingsON] = useState(false);
 
     useEffect(() => {
         const savedToken = sessionStorage.getItem("token");
@@ -28,7 +30,7 @@ function App() {
 
     return (
         <BrowserRouter>
-            <SettingsBar onLogout={handleLogout} isLoggedIn={token !== ""} />
+            <MenuBar onLogout={handleLogout} isLoggedIn={token !== ""} settingsON={settingsON} setSettingsON={setSettingsON} />
             <Routes>
                 <Route
                     path="/login"
@@ -42,6 +44,10 @@ function App() {
                     path="/register"
                     element={token ? <Navigate to="/"/> : <Register onLogin={handleLogin} />}
                 />
+                <Route
+                    path="/settings"
+                    element={token ? <Settings /> : <Navigate to="login"/>}
+                    />
                 <Route path="*" element={<Navigate to={token ? "/" : "/login"} />} />
             </Routes>
         </BrowserRouter>

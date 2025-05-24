@@ -3,13 +3,15 @@ package org.example.currencycenter.controller;
 
 import jakarta.validation.Valid;
 import org.example.currencycenter.dto.AuthenticationResponse;
+import org.example.currencycenter.dto.RequestChangePassword;
 import org.example.currencycenter.dto.RequestEmployeePayload;
+import org.example.currencycenter.dto.ResponseMessage;
+import org.example.currencycenter.model.Employee;
 import org.example.currencycenter.service.AuthService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -32,6 +34,18 @@ public class AuthController {
             @Valid @RequestBody RequestEmployeePayload data
     ){
         return ResponseEntity.status(201).body(authService.authenticate(data));
+    }
+    @PostMapping("/change-password")
+    public ResponseEntity<ResponseMessage> changePassword(Authentication auth, @Valid @RequestBody RequestChangePassword request){
+        boolean result =  authService.changePassword(auth,request);
+        if(result){
+            ResponseMessage message = new ResponseMessage(201,"Successfully changed password.");
+            return ResponseEntity.status(message.status()).contentType(MediaType.APPLICATION_JSON).body(message);
+        }
+        else{
+            ResponseMessage message = new ResponseMessage(404,"Error while changing password.");
+            return ResponseEntity.status(message.status()).contentType(MediaType.APPLICATION_JSON).body(message);
+        }
     }
 
 
