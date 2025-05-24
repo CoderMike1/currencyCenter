@@ -34,7 +34,16 @@ public class GeneralExceptionHandler {
         ResponseMessage message = new ResponseMessage(401, ex.getMessage());
         return ResponseEntity.status(401).contentType(MediaType.APPLICATION_JSON).body(message);
     }
-
+    @ExceptionHandler(InvalidPasswordsException.class)
+    public ResponseEntity<ResponseMessage> handleInvalidPasswordsException(InvalidPasswordsException ex){
+        ResponseMessage message = new ResponseMessage(404, ex.getMessage());
+        return ResponseEntity.status(404).contentType(MediaType.APPLICATION_JSON).body(message);
+    }
+    @ExceptionHandler(EmployeeAlreadyExistsException.class)
+    public ResponseEntity<ResponseMessage> handleEmployeeAlreadyExistsException(EmployeeAlreadyExistsException ex){
+        ResponseMessage message = new ResponseMessage(404, ex.getMessage());
+        return ResponseEntity.status(404).contentType(MediaType.APPLICATION_JSON).body(message);
+    }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
         Map<String, String> errors = new HashMap<>();

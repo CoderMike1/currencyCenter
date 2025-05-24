@@ -1,8 +1,9 @@
 
-import "./SettingsBar.css"
+import "./MenuBar.css"
 import { useState} from "react";
 import {useTranslation} from 'react-i18next';
-const SettingsBar = ({onLogout,isLoggedIn}) => {
+import {Link} from "react-router-dom";
+const MenuBar = ({onLogout,isLoggedIn,settingsON,setSettingsON}) => {
     const {i18n} = useTranslation();
     const [selectedLanguage,setSelectedLanguage] = useState(i18n.language);
 
@@ -14,10 +15,17 @@ const SettingsBar = ({onLogout,isLoggedIn}) => {
 
     return (
         <div className="settings-bar">
-
-            <div className="logout-button-section">
+            <div className="logout-settings-buttons-section">
                 {isLoggedIn &&
+                    <>
                     <button className="logout-button" onClick={() => onLogout()}>Log out</button>
+                        {settingsON ?
+                            <Link to="/" className="settings-button" onClick={()=>setSettingsON(!settingsON)}>Dashboard</Link>
+                            :
+                            <Link to="/settings" className="settings-button" onClick={()=>setSettingsON(!settingsON)}>Settings</Link>
+                        }
+
+                    </>
                 }
             </div>
             <div className="language-switcher">
@@ -34,5 +42,5 @@ const SettingsBar = ({onLogout,isLoggedIn}) => {
 
     )
 }
-export default SettingsBar
+export default MenuBar
 

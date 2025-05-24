@@ -26,7 +26,9 @@ const  Register = ({onLogin}) => {
                 const token = data.token;
                 onLogin(token);
             } else {
-                alert("Błędne dane logowania");
+                const data = await response.json();
+                const message = await data.message;
+                alert("Error: "+message);
             }
         }
 
