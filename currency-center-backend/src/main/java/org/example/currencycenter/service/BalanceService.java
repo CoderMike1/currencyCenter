@@ -36,7 +36,7 @@ public class BalanceService {
     public void ifEnoughMoneyOnAccount(String currencyCode, BigDecimal amount){
         BigDecimal currency_balance = balanceRepository.getAmount(currencyCode);
         if(currency_balance.compareTo(amount) < 0){
-            throw new InsufficientAccountBalance("not enough money on account balance...");
+            throw new InsufficientAccountBalance("Not enough money on "+currencyCode+" wallet.");
         }
 
     }

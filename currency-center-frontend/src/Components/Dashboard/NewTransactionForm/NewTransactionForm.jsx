@@ -37,12 +37,13 @@ const NewTransactionForm = ({currencyRates}) => {
         if(resp.status === 201){
             document.getElementById("add-form").reset();
             setResult(null);
-            alert("pozytywnie dodano nowa transakcje...");
+            const data = await resp.json();
+            alert(data.message);
             location.reload()
         }
         else{
-            console.log(resp.json())
-            alert("error while adding new transaction...")
+            const data = await resp.json();
+            alert(data.message);
         }
     }
 
