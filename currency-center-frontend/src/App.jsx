@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Register from "./Components/Register/Register.jsx";
 import MenuBar from "./Components/MenuBar/MenuBar.jsx";
 import Settings from "./Components/Settings/Settings.jsx";
-
+import Admin from "./Components/Admin/Admin.jsx";
 function App() {
     const [token, setToken] = useState('');
     const [settingsON, setSettingsON] = useState(false);
@@ -32,6 +32,10 @@ function App() {
         <BrowserRouter>
             <MenuBar onLogout={handleLogout} isLoggedIn={token !== ""} settingsON={settingsON} setSettingsON={setSettingsON} />
             <Routes>
+                <Route
+                    path="/admin"
+                    element=<Admin />
+                    />
                 <Route
                     path="/login"
                     element={token ? <Navigate to="/" /> : <Login onLogin={handleLogin} />}

@@ -38,7 +38,7 @@ public class AppLoadData implements ApplicationRunner {
 
         Employee user1 = new Employee();
         user1.setUsername("mike");
-        user1.setRole(ROLE.WORKER);
+        user1.setRole(ROLE.ADMIN);
         user1.setPassword(passwordEncoder.encode("1234"));
         employeeRepository.save(user1);
 

@@ -43,8 +43,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         req-> req.requestMatchers("/auth/login/**","/auth/register/**")
                                 .permitAll()
-                                .requestMatchers("/auth/testing").hasRole("ADMIN")
                                 .requestMatchers("/api/update/**").hasRole("ADMIN")
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
 
                 ).userDetailsService(userDetails)
