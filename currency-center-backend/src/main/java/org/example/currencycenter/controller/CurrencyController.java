@@ -69,7 +69,7 @@ public class CurrencyController {
     @PutMapping("/update/{currency_code}")
     public ResponseEntity<ResponseMessage> setExchangeRate(@PathVariable String currency_code, @Valid @RequestBody UpdateExchangeRate newRates){
 
-        currencyService.updateRates(currency_code,newRates);
+        currencyService.updateRate(currency_code,newRates);
         ResponseMessage message = new ResponseMessage(200,"Successfully updated value...");
         return ResponseEntity.status(200).contentType(MediaType.APPLICATION_JSON).body(message);
 
