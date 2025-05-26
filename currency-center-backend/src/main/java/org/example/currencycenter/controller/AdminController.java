@@ -1,6 +1,7 @@
 package org.example.currencycenter.controller;
 
 import jakarta.validation.Valid;
+import org.example.currencycenter.dto.ResponseEmployeeDTO;
 import org.example.currencycenter.dto.ResponseMessage;
 import org.example.currencycenter.dto.UpdateExchangeRate;
 import org.example.currencycenter.model.Employee;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin")
@@ -26,10 +28,10 @@ public class AdminController {
     }
 
     @GetMapping("/get-employees")
-    public ResponseEntity<List<Employee>> getEmployees(){
-        List<Employee> employees = adminService.getEmployees();
+    public ResponseEntity<Optional<List<ResponseEmployeeDTO>>> getEmployees(){
+        Optional<List<ResponseEmployeeDTO>> employees = adminService.getEmployees();
 
-        return ResponseEntity.status(201)
+        return ResponseEntity.status(200)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(employees);
     }

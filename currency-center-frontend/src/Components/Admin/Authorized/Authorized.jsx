@@ -13,7 +13,7 @@ const Authorized = () =>{
                     "Authorization":"Bearer "+sessionStorage.getItem("token")
                 }
             })
-            if(resp.status === 201){
+            if(resp.status === 200){
                 const data = await resp.json();
                 setListOfEmployees(data)
             }

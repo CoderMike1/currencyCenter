@@ -2,6 +2,7 @@ package org.example.currencycenter.exception;
 
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.example.currencycenter.dto.ResponseMessage;
 import org.example.currencycenter.model.Currency;
 import org.springframework.http.MediaType;
@@ -44,6 +45,11 @@ public class GeneralExceptionHandler {
         ResponseMessage message = new ResponseMessage(404, ex.getMessage());
         return ResponseEntity.status(404).contentType(MediaType.APPLICATION_JSON).body(message);
     }
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<ResponseMessage> handleExpiredJwtException(ExpiredJwtException ex){
+        ResponseMessage message = new ResponseMessage(405, ex.getMessage());
+        return ResponseEntity.status(404).contentType(MediaType.APPLICATION_JSON).body(message);
+    }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
         Map<String, String> errors = new HashMap<>();
@@ -76,7 +82,6 @@ public class GeneralExceptionHandler {
         return ResponseEntity.status(403).contentType(MediaType.APPLICATION_JSON).body(message);
 
     }
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseMessage> handleGeneralException(Exception ex){
         ResponseMessage message = new ResponseMessage(403, ex.getMessage());

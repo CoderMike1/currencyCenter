@@ -132,24 +132,6 @@ It is constantly improve by adding new features and finally I'd  like to built a
 }
 ```
 
-### 🟣 Update rates based on NBP currency rates
-
-#### Application sets new sell rate and buy rate based on NBP currency rates + adding or subtract percent
-
-- **GET** `/api/update-nbp/{percent}`
-- **URL Example** `/api/update-nbp/7`
-- **Request Header**
-```json
-{"Authorization": "Bearer {token}"}
-```
-- **Response** `201`
-```json
- {
-  "status": 201,
-  "message": "successfully updated the rates based on nbp rates"
-}
-```
-
 ### 🟣 Update specific currency rate
 
 - **PUT** `/api/update/{currency_code}`
@@ -269,5 +251,66 @@ It is constantly improve by adding new features and finally I'd  like to built a
   "status": 200,
   "message": "Successfully deleted transaction..."
 }
+```
+
+## ADMIN PANEL
+
+### 🟣 Update rates based on NBP currency rates
+
+#### Application sets new sell rate and buy rate based on NBP currency rates + adding or subtract percent
+
+- **GET** `/admin/update/nbp/{percent}`
+- **URL Example** `/api/update-nbp/7`
+- **Request Header**
+```json
+{"Authorization": "Bearer {token}"}
+```
+- **Response** `201`
+```json
+ {
+  "status": 201,
+  "message": "successfully updated the rates based on nbp rates"
+}
+```
+
+### 🟣 Update specific currency rate
+
+- **PUT** `/admin/update/{currency_code}`
+- **URL Example** `/api/update/EUR`
+- **Request Header**
+```json
+{"Authorization": "Bearer {token}"}
+```
+- **Request Body**
+```json
+{
+  "buy_rate":"<Double>",
+  "sell_rate":"<Double>"
+}
+```
+- **Response** `200`
+```json
+{
+  "status": 200,
+  "message": "Successfully updated value..."
+}
+```
+
+### 🟣 Show all employees
+
+- **GET** `/admin/get-employees`
+- **Request Header**
+```json
+{"Authorization": "Bearer {token}"}
+```
+- **Response** `200`
+```json
+[
+  {
+    "id": "<Long>",
+    "username": "<String>"
+  },
+  "..."
+]
 ```
 
