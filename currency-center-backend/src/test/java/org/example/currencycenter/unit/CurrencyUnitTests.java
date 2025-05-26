@@ -1,4 +1,4 @@
-package org.example.currencycenter.service.unit;
+package org.example.currencycenter.unit;
 
 
 import org.example.currencycenter.dto.UpdateExchangeRate;
