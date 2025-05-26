@@ -48,7 +48,7 @@ public class CurrencyController {
         return ResponseEntity.status(200).contentType(MediaType.APPLICATION_JSON).body(c);
     }
 
-    @GetMapping("/update-nbp/{percent}")
+    @GetMapping("/update/nbp/{percent}")
     public ResponseEntity<ResponseMessage> updateBasedOnNBPRates(@PathVariable BigDecimal percent){
         boolean result = currencyService.updateAllPricesBasedOnNBP(percent);
         int status;
@@ -67,7 +67,7 @@ public class CurrencyController {
     }
 
     @PutMapping("/update/{currency_code}")
-    public ResponseEntity<ResponseMessage> setExchangeRate(@PathVariable String currency_code, @Valid @RequestBody UpdateExchangeRate newRates){
+    public ResponseEntity<ResponseMessage> updateExchangeRate(@PathVariable String currency_code, @Valid @RequestBody UpdateExchangeRate newRates){
 
         currencyService.updateRate(currency_code,newRates);
         ResponseMessage message = new ResponseMessage(200,"Successfully updated value...");

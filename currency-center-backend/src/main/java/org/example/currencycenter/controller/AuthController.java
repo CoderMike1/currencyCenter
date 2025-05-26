@@ -49,6 +49,12 @@ public class AuthController {
     }
 
 
+    @GetMapping("/testing")
+    public String testowanko(){
+        return "gitara";
+    }
+
+
 
 
 

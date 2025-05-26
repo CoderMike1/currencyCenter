@@ -3,6 +3,7 @@ package org.example.currencycenter.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -20,6 +21,9 @@ public class Employee implements UserDetails {
     private String username;
 
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private ROLE role;
 
 
     public Long getId() {
@@ -60,7 +64,7 @@ public class Employee implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority("ROLE_"+this.role.name()));
     }
 
     public String getPassword() {
@@ -71,5 +75,11 @@ public class Employee implements UserDetails {
         this.password = password;
     }
 
+    public ROLE getRole() {
+        return role;
+    }
 
+    public void setRole(ROLE role) {
+        this.role = role;
+    }
 }

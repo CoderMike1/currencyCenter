@@ -37,14 +37,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         return http
                 .cors(cors -> {}).
                 csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         req-> req.requestMatchers("/auth/login/**","/auth/register/**")
                                 .permitAll()
+                                .requestMatchers("/auth/testing").hasRole("ADMIN")
+                                .requestMatchers("/api/update/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
+
                 ).userDetailsService(userDetails)
                 .exceptionHandling(ex ->
                         ex.accessDeniedHandler(customAccessDeniedHandler())
@@ -68,8 +70,6 @@ public class SecurityConfig {
     @Bean
     public AccessDeniedHandler customAccessDeniedHandler(){
         return (request, response, accessDeniedException) -> {
-            System.out.println(">>> Access denied handler activated");
-
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             response.setContentType("application/json");
             response.getWriter().write("{\"error\": \"Access Denied: You do not have permission.\"}");

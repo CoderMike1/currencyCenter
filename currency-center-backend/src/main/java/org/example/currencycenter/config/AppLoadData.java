@@ -4,6 +4,7 @@ package org.example.currencycenter.config;
 import org.example.currencycenter.model.Balance;
 import org.example.currencycenter.model.Currency;
 import org.example.currencycenter.model.Employee;
+import org.example.currencycenter.model.ROLE;
 import org.example.currencycenter.repository.BalanceRepository;
 import org.example.currencycenter.repository.CurrencyRepository;
 import org.example.currencycenter.repository.EmployeeRepository;
@@ -37,6 +38,7 @@ public class AppLoadData implements ApplicationRunner {
 
         Employee user1 = new Employee();
         user1.setUsername("mike");
+        user1.setRole(ROLE.WORKER);
         user1.setPassword(passwordEncoder.encode("1234"));
         employeeRepository.save(user1);
 

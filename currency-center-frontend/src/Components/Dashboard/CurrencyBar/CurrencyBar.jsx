@@ -27,9 +27,9 @@ const CurrencyBar = ({currencyRates}) => {
             closeModal();
             location.reload();
         }
-        else{
-            alert("error while updating rates...")
-            console.log(resp.body)
+        else if(resp.status === 403){
+            const message = await resp.json();
+            alert(message.error);
         }
 
 

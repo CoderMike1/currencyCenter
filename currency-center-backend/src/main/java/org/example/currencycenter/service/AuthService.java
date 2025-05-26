@@ -9,6 +9,7 @@ import org.example.currencycenter.exception.InvalidPasswordsException;
 import org.example.currencycenter.exception.InvalidPayload;
 import org.example.currencycenter.exception.QueryDBException;
 import org.example.currencycenter.model.Employee;
+import org.example.currencycenter.model.ROLE;
 import org.example.currencycenter.repository.EmployeeRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -43,6 +44,7 @@ public class AuthService {
 
         Employee employee = new Employee();
         employee.setUsername(request.username());
+        employee.setRole(ROLE.WORKER);
         employee.setPassword(passwordEncoder.encode(request.password()));
 
         repository.save(employee);
