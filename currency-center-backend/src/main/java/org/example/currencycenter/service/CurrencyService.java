@@ -36,7 +36,7 @@ public class CurrencyService {
         return c;
     }
 
-    public boolean updateRates(String currency_code, UpdateExchangeRate newRates){
+    public boolean updateRate(String currency_code, UpdateExchangeRate newRates){
         currencyRepository.findById(currency_code).orElseThrow(() -> new CurrencyNotFoundException("currency not found"));
         int updated = currencyRepository.updateValues(currency_code,newRates.buy_rate(),newRates.sell_rate());
         if(updated == 0){
@@ -89,11 +89,11 @@ public class CurrencyService {
                 else{
                     BigDecimal value = BigDecimal.valueOf(r.getValue());
                     BigDecimal profit = value.multiply(percent).divide(BigDecimal.valueOf(100),10, RoundingMode.HALF_UP);
-                    //double profit = (percent * r.getValue())/100;
+
                     BigDecimal new_buy_rate = value.subtract(profit).setScale(2,RoundingMode.HALF_UP);
-                    //double new_buy_rate = Math.round((r.getValue()-profit)*100)/100.d;
+
                     BigDecimal new_sell_rate = value.add(profit).setScale(2,RoundingMode.HALF_UP);
-                    //double new_sell_rate = Math.round((r.getValue()+profit)*100)/100.d;
+
                     currencyRepository.updateValues(r.getKey(),new_buy_rate,new_sell_rate);
                 }
             }
