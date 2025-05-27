@@ -36,10 +36,6 @@ public class AdminController {
                 .body(employees);
     }
 
-
-
-
-
     @GetMapping("/update/nbp/{percent}")
     public ResponseEntity<ResponseMessage> updateBasedOnNBPRates(@PathVariable BigDecimal percent){
         boolean result = currencyService.updateAllPricesBasedOnNBP(percent);
@@ -67,7 +63,10 @@ public class AdminController {
 
     }
 
+    @GetMapping("/data/transaction-breakdown")
+    public void transactionBreakDown(){
 
+    }
 
 
 }

@@ -31,7 +31,7 @@ const Authorized = () =>{
                 <h2>👥 Pracownicy</h2>
                 <ul>
                     {listOfEmployees.map((employee) =>(
-                        <li key={employee.id}>{employee.username}</li>
+                        <li key={employee.id} className="left-panel-employee-li">{employee.username}</li>
                     ))}
                     {/*tu dodac opcje wejscia w szczegoly kazdego pracownika i tam jakies ustawienia i statystyki*/}
                 </ul>

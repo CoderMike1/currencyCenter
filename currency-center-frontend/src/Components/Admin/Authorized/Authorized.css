@@ -44,3 +44,8 @@
 .admin-panel-container button:hover {
     background-color: #45a049;
 }
+
+
+.admin-panel-container .left-panel-employee-li{
+    list-style-type:decimal;
+}

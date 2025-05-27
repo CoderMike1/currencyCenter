@@ -42,6 +42,18 @@ public class AppLoadData implements ApplicationRunner {
         user1.setPassword(passwordEncoder.encode("1234"));
         employeeRepository.save(user1);
 
+        Employee user2 = new Employee();
+        user2.setUsername("josh");
+        user2.setRole(ROLE.WORKER);
+        user2.setPassword(passwordEncoder.encode("1234"));
+        employeeRepository.save(user2);
+
+        Employee user3 = new Employee();
+        user3.setUsername("paul");
+        user3.setRole(ROLE.WORKER);
+        user3.setPassword(passwordEncoder.encode("1234"));
+        employeeRepository.save(user3);
+
         List<Currency> currencies = new ArrayList<>();
 
         currencies.add(new Currency("USD", "US Dollar", new BigDecimal("4.11"), new BigDecimal("4.50")));
