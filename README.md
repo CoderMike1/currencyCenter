@@ -29,6 +29,7 @@ It is constantly improve by adding new features and finally I'd  like to built a
 - [x] Add transaction system (BUY / SELL)
 - [x] Add requests validation
 - [x] Add UI
+- [x] Add admin panel with stats
 - [ ] Add unit & integration tests
 - [ ] Dockerize the app
 - [ ] Add monthly reports
@@ -312,5 +313,38 @@ It is constantly improve by adding new features and finally I'd  like to built a
   },
   "..."
 ]
+```
+
+### 🟣 Get financial summary
+
+- **GET** `/admin/data/financial-summary`
+- **Request Header**
+```json
+{"Authorization": "Bearer {token}"}
+```
+- **Response** `200`
+```json
+{
+  "fullExchangedAmount": "<Double>",
+  "fullBUYExchangedAmount": "<Double>",
+  "fullSELLExchangedAmount": "<Double>",
+  "averageExchangeAmount": "<Double>"
+}
+```
+
+### 🟣 Get transaction breakdown
+
+- **GET** `/admin/data/transaction-breakdown`
+- **Request Header**
+```json
+{"Authorization": "Bearer {token}"}
+```
+- **Response** `200`
+```json
+{
+  "this_day":"<Double>",
+  "this_week":"<Double>",
+  "this_month":"<Double>",
+  "this_year":"<Double>"}
 ```
 

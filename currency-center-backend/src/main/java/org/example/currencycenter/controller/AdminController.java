@@ -1,18 +1,19 @@
 package org.example.currencycenter.controller;
 
 import jakarta.validation.Valid;
-import org.example.currencycenter.dto.ResponseEmployeeDTO;
-import org.example.currencycenter.dto.ResponseMessage;
-import org.example.currencycenter.dto.UpdateExchangeRate;
-import org.example.currencycenter.model.Employee;
+import org.example.currencycenter.dto.*;
 import org.example.currencycenter.service.AdminService;
 import org.example.currencycenter.service.CurrencyService;
+import org.example.currencycenter.service.TransactionService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.temporal.WeekFields;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @RestController
@@ -21,10 +22,12 @@ public class AdminController {
 
     private CurrencyService currencyService;
     private AdminService adminService;
+    private TransactionService transactionService;
 
-    public AdminController(CurrencyService currencyService, AdminService adminService){
+    public AdminController(CurrencyService currencyService, AdminService adminService,TransactionService transactionService){
         this.currencyService = currencyService;
         this.adminService = adminService;
+        this.transactionService = transactionService;
     }
 
     @GetMapping("/get-employees")
@@ -64,9 +67,23 @@ public class AdminController {
     }
 
     @GetMapping("/data/transaction-breakdown")
-    public void transactionBreakDown(){
+    public ResponseEntity<ResponseTransactionBreakDown> transactionBreakDown(){
+        List<TransactionDTO> transactions = transactionService.listAllTransactions();
+        ResponseTransactionBreakDown stats = adminService.getTransactionBreakDownStats(transactions);
+
+        return ResponseEntity.status(200).contentType(MediaType.APPLICATION_JSON).body(stats);
+
+        }
+    @GetMapping("/data/financial-summary")
+    public ResponseEntity<FinancialSummaryDTO> getFinancialSummary(){
+        FinancialSummaryDTO summary = adminService.computeFinancialSummary();
+
+        return ResponseEntity.status(200).contentType(MediaType.APPLICATION_JSON).body(summary);
 
     }
+
+
+
 
 
 }
